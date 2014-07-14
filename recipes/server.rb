@@ -169,6 +169,22 @@ services << 'web' if node['logstash']['server']['web']['enable']
 services.each do |type|
   if node['logstash']['server']['init_method'] == 'runit'
     runit_service("logstash_#{type}")
+  elsif node['logstash']['server']['init_method'] == 'init'
+    template "/etc/init.d/logstash_#{type}" do
+      source "init.debian.logstash_#{type}.erb"
+      mode 00755
+      variables(:config_file => node['logstash']['server']['config_dir'],
+                  :home => node['logstash']['server']['home'],
+                  :name => type,
+                  :log_file => node['logstash']['server']['log_file'],
+                  :max_heap => node['logstash']['server']['xmx'],
+                  :min_heap => node['logstash']['server']['xms']
+                  )
+      notifies :restart, "service[logstash_#{type}]", :delayed
+    end
+    service "logstash_#{type}" do
+      action [:enable, :start]
+    end
   elsif node['logstash']['server']['init_method'] == 'native'
     if platform_family? 'debian'
       if node['platform_version'] >= '12.04'
