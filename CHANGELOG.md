@@ -1,14 +1,59 @@
 # CHANGELOG for chef-logstash
 
+## 0.12.0
+* MAJOR - logstash version 1.5.4
+* MINOR - systemd improvements
+* MINOR - implement join_groups attribute
+
+## 0.11.2
+* MINOR - default logstash version 1.4.2
+* MINOR - correct status code for initv scripts
+* MINOR - parameterize open file limits for upstart method
+* MINOR - late night bad resource in server recipe.
+
+## 0.11.0
+* MAJOR - depreciate non runit service types.
+* MINOR - fix bug where node['logstash'][instance_name] must exist.
+* MAJOR - remove pyshipper in favor of beaver community cookbook.
+* MAJOR - remove beaver in favor of community cookbook.
+* MAJOR - assumes ChefDK for Development/Testing
+* MAJOR - use keys from config_template hash to make templates reusable.
+
+## 0.10.0:
+* major rework of service LWRP
+* rework of attribute precidence
+* node[logstash][default] changed to node[logstash][instance_default]
+
 This file is used to list changes made in each version of chef-logstash.
 
-## 0.7.7
+
+## 0.9.2:
+* update to fix PAX header issue on community site
+
+## 0.9.1:
+
+* curator LWRP
+
+## 0.9.0:
+
+_this will almost certainly break backwards compatibility_
+
+* support for Logstash 1.4
+* major refactor towards being a library cookbook
+  * instance LWRP
+  * service LWRP
+  * pattern LWP
+  * config LWP
+
+## 0.7.7:
+
 * Support for new beaver config [#239](https://github.com/lusis/chef-logstash/pull/239)
 * Support for multiline codec [#240](https://github.com/lusis/chef-logstash/pull/240)
 * Parameterize /var/lib/logstash [#242](https://github.com/lusis/chef-logstash/pull/242)
 * Fix parameter spacing option [#244](https://github.com/lusis/chef-logstash/pull/244)
 
 ## 0.7.6:
+
 * introduced more testing
   * Strainer: rubocop, knife test, foodcritic, chefspec
   * lots of style fixes for rubocop
@@ -16,6 +61,7 @@ This file is used to list changes made in each version of chef-logstash.
   * testkitchen + server spec
 
 ## 0.7.5:
+
 * added fedora systemd support
 * moved zeromq repos to own recipe
 

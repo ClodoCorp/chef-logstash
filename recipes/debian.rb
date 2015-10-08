@@ -1,13 +1,8 @@
-
-apt_repository "logstash" do
-  uri "http://packages.elasticsearch.org/logstash/1.4/debian"
-  components ["stable", "main"]
-  key "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
-end
-
 package "logstash"
-
-package "logstash-contrib"
+#removed since logstash-1.5
+# see https://github.com/elastic/logstash-contrib
+#       and https://github.com/logstash-plugins
+#package "logstash-contrib"
 
 if node['logstash']['server']['patterns_dir'][0] == '/'
   patterns_dir = node['logstash']['server']['patterns_dir']

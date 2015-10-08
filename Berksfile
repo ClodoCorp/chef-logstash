@@ -1,14 +1,11 @@
 # Encoding: utf-8
 
+source 'https://api.berkshelf.com' if Gem::Version.new(Berkshelf::VERSION) > Gem::Version.new('3')
+
 metadata
 
-cookbook 'rabbitmq', git: 'git://github.com/opscode-cookbooks/rabbitmq.git'
-cookbook 'java'
-
 group :test do
-  cookbook 'minitest-handler', git: 'git://github.com/btm/minitest-handler-cookbook.git'
-  cookbook 'elasticsearch', git: 'git://github.com/elasticsearch/cookbook-elasticsearch.git'
-  cookbook 'kibana', git: 'git://github.com/lusis/chef-kibana.git'
-  cookbook 'curl'
-  cookbook 'ark'
+  cookbook 'elasticsearch', git: 'https://github.com/elasticsearch/cookbook-elasticsearch.git'
+  cookbook 'kibana_lwrp', git: 'https://github.com/lusis/chef-kibana.git'
+  cookbook 'beaver'
 end
