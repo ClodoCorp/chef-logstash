@@ -10,6 +10,12 @@ else
   patterns_dir = node['logstash']['server']['home'] + '/' + node['logstash']['server']['patterns_dir']
 end
 
+#kludges for new cookbook
+logstash_service 'logstash' do
+  method 'native'
+  action [:enable]
+end
+
 if node['logstash']['server']['plugins']
   node['logstash']['server']['plugins'].each do |plugin, opts|
     logstash_plugins plugin do
@@ -49,8 +55,8 @@ template "/etc/logstash/conf.d/logstash.conf" do
   group node['logstash']['group']
   mode '0644'
   variables(
-            :graphite_server_ip => graphite_server_ip,
-            :es_server_ip => es_server_ip,
+            :graphite_server_ip => graphite_server_ip || '',
+            :es_server_ip => es_server_ip || '',
             :enable_embedded_es => node['logstash']['server']['enable_embedded_es'],
             :es_cluster => node['logstash']['elasticsearch_cluster'],
             :patterns_dir => patterns_dir
