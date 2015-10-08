@@ -10,6 +10,17 @@ else
   patterns_dir = node['logstash']['server']['home'] + '/' + node['logstash']['server']['patterns_dir']
 end
 
+if node['logstash']['server']['plugins']
+  node['logstash']['server']['plugins'].each do |plugin, opts|
+    logstash_plugins plugin do
+      opts.each do |opt|
+        send(attr, plugin[opt])
+      end
+      action [:create]
+    end
+  end
+end
+
 
 if Chef::Config[:solo]
   es_server_ip = node['logstash']['elasticsearch_ip']
