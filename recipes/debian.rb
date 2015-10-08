@@ -13,8 +13,8 @@ end
 if node['logstash']['server']['plugins']
   node['logstash']['server']['plugins'].each do |plugin, opts|
     logstash_plugins plugin do
-      opts.each do |opt|
-        send(attr, plugin[opt])
+      opts.each do |opt, value|
+        send(opt, value)
       end
       action [:create]
     end
